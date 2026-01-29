@@ -22,7 +22,7 @@ def get_python_files(repo_path: str) -> list[str]:
   return python_files
 
 def read_file_content(file_path: str) -> str:
-"""Read and return the content of a file."""
+    """Read and return the content of a file."""
     try:
         with open(file_path, "r", encoding="utf-8") as f:
             return f.read()
