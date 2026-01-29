@@ -60,18 +60,18 @@ def analyze_code_with_gemini(code_content: str, file_path: str) -> dict:
     If no dead code is found, return: {{"findings": []}}
     Only return the JSON, no additional text."""
 
-        try:
-            response = client.models.generate_content(
-                model="gemini-2.5-flash",
-                contents=prompt
-            )
-            response_text = response.text.strip()
-            if response_text.startswith("`" * 3):
-                response_text = response_text.split("\n", 1)[1]
-                response_text = response_text.rsplit("`" * 3, 1)[0]
-            return json.loads(response_text)
-        except Exception as e:
-            return {"error": str(e), "findings": []}
+    try:
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt
+        )
+        response_text = response.text.strip()
+        if response_text.startswith("`" * 3):
+            response_text = response_text.split("\n", 1)[1]
+            response_text = response_text.rsplit("`" * 3, 1)[0]
+        return json.loads(response_text)
+    except Exception as e:
+        return {"error": str(e), "findings": []}
 
 def format_findings_as_markdown(all_findings: list[dict]) -> str:
     """Format all findings as markdown for a GitHub Issue."""
